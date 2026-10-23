@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RotaMundo | Guia de Viagens</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="cabecalho">
+    <a href="#inicio" class="logo" data-tela="inicio">🌎 RotaMundo</a>
+
+    <nav class="menu">
+      <button data-tela="inicio" class="link-menu ativo">Início</button>
+      <button data-tela="listagem" class="link-menu">Destinos</button>
+      <button data-tela="cadastro" class="link-menu">Cadastrar destino</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="inicio" class="tela ativa">
+      <div class="hero">
+        <div class="hero-conteudo">
+          <span class="etiqueta">SEU PRÓXIMO DESTINO COMEÇA AQUI</span>
+          <h1>Descubra lugares incríveis pelo mundo</h1>
+          <p>
+            Explore destinos, conheça novas culturas e planeje sua próxima
+            aventura com o RotaMundo.
+          </p>
+          <button class="botao principal" data-tela="listagem">
+            Explorar destinos
+          </button>
+        </div>
+
+        <div class="hero-imagem">
+          <img
+            src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80"
+            alt="Montanhas de um destino turístico"
+          >
+        </div>
+      </div>
+
+      <section class="sobre">
+        <h2>Conheça o RotaMundo</h2>
+        <p class="texto-central">
+          Um guia para ajudar você a descobrir lugares e encontrar inspiração
+          para suas próximas viagens.
+        </p>
+
+        <div class="sobre-grid">
+          <article class="sobre-card">
+            <span>🎯</span>
+            <h3>Missão</h3>
+            <p>Facilitar a descoberta de destinos turísticos e incentivar novas experiências.</p>
+          </article>
+
+          <article class="sobre-card">
+            <span>🌍</span>
+            <h3>Visão</h3>
+            <p>Ser uma fonte de inspiração para pessoas que desejam conhecer o mundo.</p>
+          </article>
+
+          <article class="sobre-card">
+            <span>🤝</span>
+            <h3>Valores</h3>
+            <p>Valorizar a diversidade cultural, o respeito e o turismo responsável.</p>
+          </article>
+        </div>
+      </section>
+    </section>
+
+    <section id="listagem" class="tela">
+      <div class="titulo-secao">
+        <span class="etiqueta">EXPLORE O MUNDO</span>
+        <h1>Destinos turísticos</h1>
+        <p>Clique em um destino para conhecer mais detalhes.</p>
+      </div>
+
+      <div class="filtros">
+        <input
+          type="search"
+          id="pesquisa"
+          placeholder="Pesquisar por destino, cidade ou país..."
+          aria-label="Pesquisar destinos"
+        >
+
+        <select id="filtro-categoria" aria-label="Filtrar por categoria">
+          <option value="">Todas as categorias</option>
+          <option value="Praia">Praia</option>
+          <option value="Natureza">Natureza</option>
+          <option value="Cultura">Cultura</option>
+          <option value="Cidade">Cidade</option>
+          <option value="Aventura">Aventura</option>
+        </select>
+      </div>
+
+      <p id="status-api" class="status-api" role="status"></p>
+      <div id="lista-destinos" class="destinos-grid"></div>
+    </section>
+
+    <section id="cadastro" class="tela">
+      <div class="titulo-secao">
+        <span class="etiqueta">COMPARTILHE UM LUGAR</span>
+        <h1>Cadastrar destino</h1>
+        <p>Adicione um destino turístico à lista do RotaMundo.</p>
+      </div>
+
+      <form id="form-destino" class="formulario">
+        <div class="campo">
+          <label for="nome">Nome do destino *</label>
+          <input id="nome" name="nome" type="text" required maxlength="100"
+            placeholder="Ex.: Cristo Redentor">
+        </div>
+
+        <div class="campos-duplos">
+          <div class="campo">
+            <label for="cidade">Cidade *</label>
+            <input id="cidade" name="cidade" type="text" required maxlength="100"
+              placeholder="Ex.: Rio de Janeiro">
+          </div>
+
+          <div class="campo">
+            <label for="pais">País *</label>
+            <input id="pais" name="pais" type="text" required maxlength="100"
+              placeholder="Ex.: Brasil">
+          </div>
+        </div>
+
+        <div class="campo">
+          <label for="categoria">Categoria *</label>
+          <select id="categoria" name="categoria" required>
+            <option value="">Selecione uma categoria</option>
+            <option value="Praia">Praia</option>
+            <option value="Natureza">Natureza</option>
+            <option value="Cultura">Cultura</option>
+            <option value="Cidade">Cidade</option>
+            <option value="Aventura">Aventura</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <label for="descricao">Descrição *</label>
+          <textarea id="descricao" name="descricao" required maxlength="1000"
+            rows="4" placeholder="Conte um pouco sobre esse lugar..."></textarea>
+        </div>
+
+        <div class="campo">
+          <label for="imagem">URL da imagem (opcional)</label>
+          <input id="imagem" name="imagem" type="url"
+            placeholder="https://exemplo.com/imagem.jpg">
+        </div>
+
+        <div class="botoes-formulario">
+          <button type="submit" class="botao principal">Salvar destino</button>
+          <button type="reset" class="botao secundario">Limpar formulário</button>
+        </div>
+
+        <p id="mensagem-form" role="status"></p>
+      </form>
+    </section>
+  </main>
+
+  <div id="modal-destino" class="modal-destino" aria-hidden="true">
+    <div class="modal-conteudo" role="dialog" aria-modal="true"
+      aria-labelledby="modal-titulo">
+      <button type="button" id="fechar-modal" class="fechar-modal"
+        aria-label="Fechar detalhes">×</button>
+
+      <img id="modal-imagem" src="" alt="" class="modal-imagem">
+
+      <div class="modal-texto">
+        <span id="modal-categoria" class="categoria"></span>
+        <h2 id="modal-titulo"></h2>
+        <p id="modal-local" class="modal-local"></p>
+        <p id="modal-descricao"></p>
+        <p id="modal-origem" class="modal-origem"></p>
+        <button type="button" id="modal-excluir" class="botao excluir">
+          Excluir destino cadastrado
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="rodape">
+    <p>© 2026 RotaMundo — Descubra seu próximo destino.</p>
+  </footer>
+</body>
+</html>
